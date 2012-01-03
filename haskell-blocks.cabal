@@ -1,0 +1,28 @@
+Name:           Haskell-blocks
+Version:        1.0
+
+License:        GPL-3
+License-file:   LICENSE
+
+Author:         Pavel Fatin
+Maintainer:     mail@pavelfatin.com
+
+Category:       Game
+Description:    A simple tetris-like game.
+Homepage:       http://pavelfatin.com
+
+Build-depends:  base, containers, haskell98, random, OpenGL, GLUT
+Build-type:     Simple
+Data-files:     README
+Executable:     haskell-blocks
+Main-is:        Main.hs
+
+Hs-source-dirs: src
+
+Other-modules: 
+                Cluster
+                Data
+                Display
+                Piece
+                Scene
+                Stats
