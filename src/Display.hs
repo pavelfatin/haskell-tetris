@@ -29,7 +29,7 @@ drawBlock height (Block (Location x y) (Coloring r g b)) = do
     let i = 0.03
         xx = fromIntegral x
         yy = fromIntegral (height - y)
-    color $ (Color3 (r :: GLfloat) g b)
+    color $ (Color3 (realToFrac r :: GLfloat) (realToFrac g) (realToFrac b))
     rect (Vertex2 ((xx + i) :: GLfloat) (yy - 1.0 + i)) (Vertex2 (xx + 1.0 - i) (yy - i))
 
 drawStats :: Stats -> IO ()
@@ -42,7 +42,7 @@ drawStats stats = do
 drawText :: Float -> Float -> String -> IO ()
 drawText x y s =
     preservingMatrix $ do
-        translate (Vector3 x y (0.0 :: GLfloat))
+        translate (Vector3 (realToFrac x) (realToFrac y) (0.0 :: GLfloat))
         scale 0.0008 0.0005 (1.0 :: GLfloat)
         renderString MonoRoman s
 

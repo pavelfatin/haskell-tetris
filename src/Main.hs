@@ -4,7 +4,7 @@ import Control.Monad
 import Data.IORef
 import Graphics.Rendering.OpenGL
 import Graphics.UI.GLUT
-import Random
+import System.Random
 
 import Data
 import Display
@@ -27,7 +27,7 @@ startNewGame :: IO ()
 startNewGame = do
     sceneRef <- newIORef $ createEmptyScene gameArea
     displayCallback $= drawingCallback sceneRef
-    keyboardMouseCallback $= Just (keyboardCallback sceneRef)
+    keyboardMouseCallback $= Just (inputCallback sceneRef)
     timerCallback sceneRef
 
 drawingCallback :: IORef Scene -> IO ()
@@ -60,15 +60,15 @@ nextPiece = choiceOneOf pieces
     where choiceOneOf :: [a] -> IO a
           choiceOneOf xs = randomRIO (0, (length xs - 1)) >>= return . (xs !!)
 
-keyboardCallback :: IORef Scene -> KeyboardMouseCallback
-keyboardCallback sceneRef (SpecialKey key) Down _ _ = do
+inputCallback :: IORef Scene -> KeyboardMouseCallback
+inputCallback sceneRef (SpecialKey key) Down _ _ = do
     scene <- get sceneRef
     if isValidScene scene then do
         sceneRef $= reactionOn key scene
         postRedisplay Nothing
         else when (key == KeyDown) startNewGame 
 
-keyboardCallback _ _ _ _ _ = return ()
+inputCallback _ _ _ _ _ = return ()
 
 reactionOn :: SpecialKey -> Scene -> Scene
 reactionOn KeyLeft = movePieceLeftInScene

@@ -11,7 +11,7 @@ Category:       Game
 Description:    A simple tetris-like game.
 Homepage:       http://pavelfatin.com
 
-Build-depends:  base, containers, haskell98, random, OpenGL, GLUT
+Build-depends:  base, containers, random, OpenGL, GLUT
 Build-type:     Simple
 Data-files:     README
 Executable:     haskell-blocks
